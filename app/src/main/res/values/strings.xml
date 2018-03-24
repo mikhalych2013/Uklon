@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Uklon</string>
+
+    <string name="common_http_error_unknown_host_exception">No Internet Connection</string>
+    <string name="common_http_error_unexpected_exception">Unexpected error</string>
+
+    <!-- Post List Fragment -->
+    <string name="fragment_post_list_screen_title">Post List</string>
+
+    <!-- User Details Fragment -->
+    <string name="fragment_user_details_screen_title">User Details</string>
+
+    <!-- User Card -->
+    <string name="view_holder_user_card_title_username">Username:</string>
+    <string name="view_holder_user_card_title_email">Email:</string>
+    <string name="view_holder_user_card_title_phone">Phone:</string>
+
+</resources>

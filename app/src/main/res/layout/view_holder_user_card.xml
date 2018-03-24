@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_marginStart="16dp"
+    tools:layout_marginEnd="16dp"
+    tools:layout_marginTop="16dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/text_view_username_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_username"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_view_username"
+            android:text="@string/view_holder_user_card_title_username" />
+
+        <TextView
+            android:id="@+id/text_view_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/text_view_username_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_default="wrap"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="demo12345" />
+
+        <TextView
+            android:id="@+id/text_view_email_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_email"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_view_email"
+            android:text="@string/view_holder_user_card_title_email" />
+
+        <TextView
+            android:id="@+id/text_view_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/text_view_email_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_default="wrap"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_username"
+            tools:text="email@email.com" />
+
+        <TextView
+            android:id="@+id/text_view_phone_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_phone"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_view_phone"
+            android:text="@string/view_holder_user_card_title_phone" />
+
+        <TextView
+            android:id="@+id/text_view_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/text_view_phone_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_default="wrap"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_email"
+            tools:text="+380 (99) 123 45 67" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
