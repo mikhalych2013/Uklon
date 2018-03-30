@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.test.uklon.App
 import com.test.uklon.R
 import com.test.uklon.api.models.UserDetails
 import com.test.uklon.base.BaseFragment
@@ -13,6 +14,7 @@ import com.test.uklon.base.showToast
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_user_details.view.*
+import javax.inject.Inject
 
 class UserDetailsFragment : BaseFragment(), UserDetailsContract.ViewContract {
 
@@ -30,11 +32,13 @@ class UserDetailsFragment : BaseFragment(), UserDetailsContract.ViewContract {
 
     private lateinit var itemsRefreshedSubject: PublishSubject<Unit>
 
-    private var presenter: UserDetailsContract.PresenterContract? = null
+    @Inject
+    lateinit var presenter: UserDetailsContract.PresenterContract
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setTitle(R.string.fragment_user_details_screen_title)
 
+        (activity.application as App).appComponent.inject(this)
         itemsRefreshedSubject = PublishSubject.create()
         val view = inflater.inflate(R.layout.fragment_post_list, container, false)
         view.swipe_refresh_layout.setOnRefreshListener { itemsRefreshedSubject.onNext(Unit) }
@@ -47,8 +51,12 @@ class UserDetailsFragment : BaseFragment(), UserDetailsContract.ViewContract {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (presenter == null) presenter = UserDetailsPresenter()
-        presenter?.init(this, arguments.getLong(KEY_USER_ID))
+        presenter.init(this, arguments.getLong(KEY_USER_ID))
+    }
+
+    override fun onDestroyView() {
+        release()
+        super.onDestroyView()
     }
 
     override fun updateContent(details: UserDetails?, showLoading: Boolean, errorMessage: String?) {
@@ -61,7 +69,7 @@ class UserDetailsFragment : BaseFragment(), UserDetailsContract.ViewContract {
 
     override fun release() {
         itemsRefreshedSubject.onComplete()
-        presenter?.release()
+        presenter.release()
     }
 
 }

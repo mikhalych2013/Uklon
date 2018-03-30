@@ -1,11 +1,12 @@
 package com.test.uklon.screens.post_list
 
-import com.test.uklon.api.Api
 import com.test.uklon.api.ApiError
+import com.test.uklon.api.IApi
 import com.test.uklon.api.models.Post
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
-class PostListPresenter : PostListContract.PresenterContract {
+class PostListPresenter @Inject constructor(private val api: IApi) : PostListContract.PresenterContract {
 
     private var view: PostListContract.ViewContract? = null
     private var posts: List<Post>? = null
@@ -26,7 +27,7 @@ class PostListPresenter : PostListContract.PresenterContract {
     private fun preparePosts() {
         if (preparePostsDisposable?.isDisposed == false) return
         view?.updateContent(posts, true, null)
-        preparePostsDisposable = Api.instance.getPosts()
+        preparePostsDisposable = api.getPosts()
 //        .delaySubscription(2000, TimeUnit.MILLISECONDS)
         .subscribe ({
             posts = it

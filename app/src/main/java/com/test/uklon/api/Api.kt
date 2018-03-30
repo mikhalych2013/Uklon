@@ -14,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class Api {
+class Api : IApi {
 
     companion object {
         val instance: Api by lazy { Api() }
@@ -40,9 +40,9 @@ class Api {
         return builder.build().create(ApiService::class.java)
     }
 
-    fun getPosts(): Observable<List<Post>> = service.getPosts().onApiThread()
+    override fun getPosts(): Observable<List<Post>> = service.getPosts().onApiThread()
 
-    fun getUserDetails(userId: Long): Observable<UserDetails> {
+    override fun getUserDetails(userId: Long): Observable<UserDetails> {
         return Observable.zip(
                 service.getUserById(userId),
                 service.getPostsByUserId(userId),

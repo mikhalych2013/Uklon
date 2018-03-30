@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.test.uklon.App
 import com.test.uklon.R
 import com.test.uklon.api.models.Post
 import com.test.uklon.base.BaseFragment
@@ -14,6 +15,7 @@ import com.test.uklon.screens.user_details.UserDetailsFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
+import javax.inject.Inject
 
 class PostListFragment : BaseFragment(), PostListContract.ViewContract {
 
@@ -29,11 +31,13 @@ class PostListFragment : BaseFragment(), PostListContract.ViewContract {
     private lateinit var itemSelectedSubject: PublishSubject<Post>
     private lateinit var itemsRefreshedSubject: PublishSubject<Unit>
 
-    private var presenter: PostListContract.PresenterContract? = null
+    @Inject
+    lateinit var presenter: PostListContract.PresenterContract
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setTitle(R.string.fragment_post_list_screen_title)
 
+        (activity.application as App).appComponent.inject(this)
         itemSelectedSubject = PublishSubject.create()
         itemsRefreshedSubject = PublishSubject.create()
         val view = inflater.inflate(R.layout.fragment_post_list, container, false)
@@ -47,8 +51,12 @@ class PostListFragment : BaseFragment(), PostListContract.ViewContract {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (presenter == null) presenter = PostListPresenter()
-        presenter?.init(this)
+        presenter.init(this)
+    }
+
+    override fun onDestroyView() {
+        release()
+        super.onDestroyView()
     }
 
     override fun updateContent(posts: List<Post>?, showLoading: Boolean, errorMessage: String?) {
@@ -68,7 +76,7 @@ class PostListFragment : BaseFragment(), PostListContract.ViewContract {
     override fun release() {
         itemSelectedSubject.onComplete()
         itemsRefreshedSubject.onComplete()
-        presenter?.release()
+        presenter.release()
     }
 
 }
